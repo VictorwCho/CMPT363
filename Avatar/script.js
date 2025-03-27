@@ -109,6 +109,9 @@ function popup(muscleGroupName) {
     popupAddButton.addEventListener('click', () => {
         muscleGroups[muscleGroupName].forEach(muscle => {
             const checkbox = document.getElementById(muscle);
+            if (checkbox == null) {
+                return;
+            }
             if (checkbox.checked && !myMuscles.includes(muscle)) {
                 myMuscles.push(muscle);
             } else if (!checkbox.checked) {
@@ -144,8 +147,23 @@ function populateMuscleList() {
     const muscleList = document.getElementById('muscle-list-content');
     muscleList.innerHTML = "";
     myMuscles.forEach(muscle => {
-        const li = document.createElement('li');
-        li.innerHTML = muscle;
-        muscleList.appendChild(li);
+        const p = document.createElement('p');
+        p.innerHTML = muscle;
+        // muscleList.appendChild(li);
+
+        const button = document.createElement('button');
+        button.innerHTML = "X";
+
+        const container = document.createElement('div');
+        container.id = "muscle-list-container";
+        container.appendChild(p);
+        container.appendChild(button);
+
+        muscleList.appendChild(container);
+
+        button.addEventListener('click', () => {
+            myMuscles = myMuscles.filter(item => item !== muscle);
+            populateMuscleList();
+        });
     });
 }
