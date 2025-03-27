@@ -267,3 +267,11 @@
   gap: 10px;
   margin: 1rem;
 }
+
+#popup-muscle-selection, #popup-dropdown {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
