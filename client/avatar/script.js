@@ -12,9 +12,9 @@ const muscleGroups = {
     "Core": ["Abs", "Obliques"],
 };
 
-
+const URL = 'https://localhost:3001'
 const ellipses = document.querySelectorAll('.ellipse');
-
+const generateInformationButton = document.getElementById('generate-information');
 var myMuscles = [];
 
 /**
@@ -165,3 +165,34 @@ function populateMuscleList() {
         });
     });
 }
+
+generateInformationButton.addEventListener('click', async () => {
+    const requestBody = {
+        "contents": [{
+            "parts":[{"text": "write me 5 sentences"}]
+            }]
+        }
+
+    try {
+        const response = await fetch(`${URL}/generate`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(requestBody),
+        });
+
+        if (response.ok) {
+            const data = await response.json();
+            console.log('Response from server:', data);
+            console.log('Information generated successfully!');
+            window.location.href = 'sandbox.html';
+        } else {
+            console.error('Error:', response.statusText);
+            console.log('Failed to generate information.');
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        console.log('An error occurred while generating information.');
+    }
+});

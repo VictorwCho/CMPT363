@@ -1,1 +1,11 @@
-server
+.vscode/
+.idea/
+.DS_Store  # macOS
+Thumbs.db  # Windows
+*.log
+dist/
+build/
+node_modules
+.env
+certificates/
+package-lock.json
