@@ -124,7 +124,6 @@ function popup(muscleGroupName) {
         popup.style.display = 'none';
     });
     
-    
     // Open the popup
     popup.style.display = 'flex'; // Show the popup
     popup.style.zIndex = 99999; // Bring the popup to the front
@@ -149,7 +148,6 @@ function populateMuscleList() {
     myMuscles.forEach(muscle => {
         const p = document.createElement('p');
         p.innerHTML = muscle;
-        // muscleList.appendChild(li);
 
         const button = document.createElement('button');
         button.innerHTML = "X";
