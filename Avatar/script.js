@@ -2,17 +2,20 @@
  * The muscle groups and their respective muscles
  */
 const muscleGroups = {
-    "Chest": ["All", "Upper Chest", "Lower Chest"],
-    "Upper Arms": ["All", "Biceps", "Triceps", "Forearms"],
-    "Back": ["All", "Lats", "Traps", "Rhomboids" ],
-    "Shoulders": ["All", "Deltoids", "Rotator Cuff"],
-    "Lower Arms": ["All", "Flexors", "Extensors"],
-    "Lower Legs": ["All", "Calves", "Shins"],
-    "Upper Legs": ["All", "Quads", "Hamstrings", "Glutes"],
-    "Core": ["All", "Abs", "Obliques"],
+    "Chest": ["Upper Chest", "Lower Chest"],
+    "Upper Arms": ["Biceps", "Triceps", "Forearms"],
+    "Back": ["Lats", "Traps", "Rhomboids" ],
+    "Shoulders": ["Deltoids", "Rotator Cuff"],
+    "Lower Arms": ["Flexors", "Extensors"],
+    "Lower Legs": ["Calves", "Shins"],
+    "Upper Legs": ["Quads", "Hamstrings", "Glutes"],
+    "Core": ["Abs", "Obliques"],
 };
 
+
 const ellipses = document.querySelectorAll('.ellipse');
+
+var myMuscles = [];
 
 /**
  * Add an event listener to each ellipse
@@ -74,18 +77,50 @@ function popup(muscleGroupName) {
     const popup = document.getElementById('popup');
     const popupTitle = document.getElementById('popup-title');
     const closeButton = document.getElementById('closePopup');
-    const generateInformationButton = document.getElementById('popup-generate-information');
-    const generateWorkoutButton = document.getElementById('popup-generate-workout');
-    const generateStretchButton = document.getElementById('popup-generate-stretch');
-    const muscleSelectionOptions = document.getElementById('popup-dropdown');
+    const muscleSelectionOptions = document.getElementById('popup-options');
+    const popupAddButton = document.getElementById('popup-button-add');
     
+    // Clear the muscle selection options and add the muscles as options
     muscleSelectionOptions.innerHTML = "";
     muscleGroups[muscleGroupName].forEach(muscle => {
-        const option = document.createElement('option');
-        option.value = muscle;
-        option.innerHTML = muscle;
-        muscleSelectionOptions.appendChild(option);
+        const input = document.createElement('input');
+        input.type = 'checkbox';
+        input.id = muscle;
+        input.value = muscle;
+        input.innerHTML = muscle;
+        input.checked = false;
+
+        if (myMuscles.includes(muscle)) {
+            input.checked = true;
+        }
+
+        const label = document.createElement('label');
+        label.htmlFor
+        label.innerHTML = muscle;
+        
+        const container = document.createElement('div');
+        container.id = "popup-container";
+        container.appendChild(input);
+        container.appendChild(label);
+        
+        muscleSelectionOptions.appendChild(container);
     });
+
+    popupAddButton.addEventListener('click', () => {
+        muscleGroups[muscleGroupName].forEach(muscle => {
+            const checkbox = document.getElementById(muscle);
+            if (checkbox.checked && !myMuscles.includes(muscle)) {
+                myMuscles.push(muscle);
+            } else if (!checkbox.checked) {
+                myMuscles = myMuscles.filter(item => item !== muscle);
+            }
+        });
+    
+        // Update the muscle list and close the popup
+        populateMuscleList();
+        popup.style.display = 'none';
+    });
+    
     
     // Open the popup
     popup.style.display = 'flex'; // Show the popup
@@ -104,3 +139,13 @@ function popup(muscleGroupName) {
         }
     });
 };
+
+function populateMuscleList() {
+    const muscleList = document.getElementById('muscle-list-content');
+    muscleList.innerHTML = "";
+    myMuscles.forEach(muscle => {
+        const li = document.createElement('li');
+        li.innerHTML = muscle;
+        muscleList.appendChild(li);
+    });
+}

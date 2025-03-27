@@ -35,17 +35,16 @@
       <main class="popup-content">
         <span id="closePopup" class="close">&times;</span>
           <div id="popup-title">I AM A TITLE</div>
-          <article id="popup-muscle-selection">
-            <label for="popup-dropdown">Choose an option:</label>
-            <select id="popup-dropdown">
-  
-            </select>
-          </article>
+          <section id="popup-muscle-selection">
+            <label for="popup-dropdown">Choose Options:</label>
+            <div id="popup-options"></div>
+          </section>
 
           <section id="popup-buttons">
-            <button id="popup-generate-information">Generate Information</button>
+            <button id="popup-button-add">Add</button>
+            <!-- <button id="popup-generate-information">Generate Information</button>
             <button id="popup-generate-workout">Generate Work-Out</button>
-            <button id="popup-generate-stretches">Generate Stretches</button>
+            <button id="popup-generate-stretches">Generate Stretches</button> -->
           </section>
       </main>
   </div>
@@ -54,30 +53,37 @@
     Avatar Body Parts
     -->
     <main>
-        <div class="AI-bodypart-popup">
-            <div class="div">
-                <img class="img" src="Assets/Avatar Female/f-bicept.png" />
-                <img class="img" src="Assets/Avatar Female/f-uback.png" />
-                <img class="img" src="Assets/Avatar Female/f-ulegs.png" />
-                <img class="img" src="Assets/Avatar Female/f-abs.png" />
-                <img class="img" src="Assets/Avatar Female/f-forearm.png" />
-                <img class="img" src="Assets/Avatar Female/f-sideabs.png" />
-                <img class="img" src="Assets/Avatar Female/f-chest.png" />
-                <img class="img" src="Assets/Avatar Female/f-glutes.png" />
-                <img class="img" src="Assets/Avatar Female/f-head.png" />
-                <img src="Assets/Avatar Female/f-llegs.png" />
-                <div id="ellipse-1" class="ellipse"></div>
-                <div id="ellipse-2" class="ellipse"></div>
-                <div id="ellipse-3" class="ellipse"></div>
-                <div id="ellipse-4" class="ellipse"></div>
-                <div id="ellipse-5" class="ellipse"></div>
-                <div id="ellipse-6" class="ellipse"></div>
-                <div id="ellipse-7" class="ellipse"></div>
-                <div id="ellipse-8" class="ellipse"></div>
-            </div>
-        </div>
+      <section class="AI-bodypart-popup">
+        <article id="avatar" class="div">
+          <img class="img" src="Assets/Avatar Female/f-bicept.png" />
+          <img class="img" src="Assets/Avatar Female/f-uback.png" />
+          <img class="img" src="Assets/Avatar Female/f-ulegs.png" />
+          <img class="img" src="Assets/Avatar Female/f-abs.png" />
+          <img class="img" src="Assets/Avatar Female/f-forearm.png" />
+          <img class="img" src="Assets/Avatar Female/f-sideabs.png" />
+          <img class="img" src="Assets/Avatar Female/f-chest.png" />
+          <img class="img" src="Assets/Avatar Female/f-glutes.png" />
+          <img class="img" src="Assets/Avatar Female/f-head.png" />
+          <img src="Assets/Avatar Female/f-llegs.png" />
+          <div id="ellipse-1" class="ellipse"></div>
+          <div id="ellipse-2" class="ellipse"></div>
+          <div id="ellipse-3" class="ellipse"></div>
+          <div id="ellipse-4" class="ellipse"></div>
+          <div id="ellipse-5" class="ellipse"></div>
+          <div id="ellipse-6" class="ellipse"></div>
+          <div id="ellipse-7" class="ellipse"></div>
+          <div id="ellipse-8" class="ellipse"></div>
+        </article>
+        <article id="muscle-list">
+          <section id="muscle-list-title">Muscle List</section>
+          <section id="muscle-list-content"></section>
+          <section id="popup-buttons">
+            <button id="popup-generate-information">Generate Information</button>
+            <button id="popup-generate-workout">Generate Work-Out</button>
+            <button id="popup-generate-stretches">Generate Stretches</button>
+        </article>
+      </section>
     </main>
-
 
     <!-- 
     Bottom Navbar

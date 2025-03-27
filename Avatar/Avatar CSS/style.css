@@ -268,7 +268,24 @@
   margin: 1rem;
 }
 
-#popup-muscle-selection, #popup-dropdown {
+#popup-muscle-selection {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+#popup-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Muscle list */
+#muscle-list {
   display: flex;
   flex-direction: column;
   justify-content: center;
