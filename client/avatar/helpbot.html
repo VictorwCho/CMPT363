@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AI Chat Box</title>
+    <link rel="stylesheet" href="globals.css" />
+    <link rel="stylesheet" href="styleguide.css" />
+    <link rel="stylesheet" href="./avatar-css/helpbot.css" />
+  </head>
+  <body>
+    <div class="home-button-wrapper">
+      <a href="index.html" class="home-button">
+        <img src="assets/icon/home.png" alt="Home" class="home-icon">
+      </a>
+    </div>
+    <main class="AI-chat-box">
+      <section class="chat-messages">
+        <div class="scrollable">
+          <article class="user-message">
+            <p>User: Add in workouts for shoulders along side the tricep workouts</p>
+          </article>
+          <article class="ai-message">
+            <p>Coach AI: Adding in shoulder workouts....</p>
+          </article>
+        </div>
+      </section>
+      <form class="chat-input" role="search">
+        <label for="user-input" class="visually-hidden">Enter your prompt</label>
+        <input
+          type="text"
+          id="user-input"
+          class="text-input"
+          placeholder="Enter your prompt..."
+          aria-label="Enter your prompt"
+        />
+        <button type="button" class="history-button" aria-label="View chat history">
+          <img class="clock" src="https://c.animaapp.com/1ZkV7iSm/img/clock-1.svg" alt="" />
+        </button>
+        <button type="submit" class="submit-button" aria-label="Send message">
+          <img class="plus-square" src="https://c.animaapp.com/1ZkV7iSm/img/plus-square-1.svg" alt="" />
+        </button>
+      </form>
+    </main>
+  </body>
+</html>

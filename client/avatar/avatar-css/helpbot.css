@@ -1,0 +1,186 @@
+.AI-chat-box {
+    position: relative;
+    width: 90%;
+    height: 99%;
+    background-color: #555555;
+    border-radius: 20px;
+    overflow: hidden;
+
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  
+  .AI-chat-box .group {
+    position: absolute;
+    width: 301px;
+    height: 385px;
+    top: 25px;
+    left: 24px;
+  }
+  
+  .AI-chat-box .scrollable {
+    position: relative;
+    height: 385px;
+    overflow-y: scroll;
+  }
+  
+  .AI-chat-box .scrollable::-webkit-scrollbar {
+    width: 0;
+    display: none;
+  }
+  
+  .AI-chat-box .text-wrapper {
+    position: absolute;
+    width: 225px;
+    top: 242px;
+    left: 76px;
+    font-family: var(--m3-body-medium-font-family);
+    font-weight: var(--m3-body-medium-font-weight);
+    color: #ffffff;
+    font-size: var(--m3-body-medium-font-size);
+    letter-spacing: var(--m3-body-medium-letter-spacing);
+    line-height: var(--m3-body-medium-line-height);
+    font-style: var(--m3-body-medium-font-style);
+  }
+  
+  .AI-chat-box .div {
+    position: absolute;
+    width: 225px;
+    top: 328px;
+    left: 0;
+    font-family: var(--m3-body-medium-font-family);
+    font-weight: var(--m3-body-medium-font-weight);
+    color: #ffffff;
+    font-size: var(--m3-body-medium-font-size);
+    letter-spacing: var(--m3-body-medium-letter-spacing);
+    line-height: var(--m3-body-medium-line-height);
+    font-style: var(--m3-body-medium-font-style);
+  }
+  
+  .AI-chat-box .search {
+    display: flex;
+    width: 302px;
+    align-items: center;
+    gap: var(--size-space-200);
+    padding: var(--size-space-300) var(--size-space-400) var(--size-space-300)
+      var(--size-space-400);
+    position: absolute;
+    top: 434px;
+    left: 24px;
+    background-color: var(--color-background-neutral-default);
+    border-radius: var(--size-radius-full);
+    overflow: hidden;
+    border: 1px solid;
+    border-color: var(--color-border-neutral-default);
+  }
+  
+  .AI-chat-box .clock {
+    position: relative;
+    width: 16px;
+    height: 16px;
+  }
+  
+  .AI-chat-box .text-wrapper-2 {
+    position: relative;
+    flex: 1;
+    font-family: var(--single-line-body-base-font-family);
+    font-weight: var(--single-line-body-base-font-weight);
+    color: var(--color-text-neutral-on-neutral);
+    font-size: var(--single-line-body-base-font-size);
+    text-align: center;
+    letter-spacing: var(--single-line-body-base-letter-spacing);
+    line-height: var(--single-line-body-base-line-height);
+    font-style: var(--single-line-body-base-font-style);
+  }
+  
+  .AI-chat-box .plus-square {
+    position: relative;
+    width: 18px;
+    height: 18px;
+  }
+  /* Original CSS code should be injected here */
+  
+  .AI-chat-box {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  
+  .chat-messages {
+    flex-grow: 1;
+    overflow: hidden;
+  }
+  
+  .scrollable {
+    height: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+  }
+  
+  .user-message,
+  .ai-message {
+    margin-bottom: 20px;
+    color: #fff;
+  }
+  
+  .user-message p,
+  .ai-message p {
+    margin: 0;
+    padding: 10px;
+    border-radius: 10px;
+  }
+  
+  .user-message p {
+    background-color: rgba(255, 255, 255, 0.1);
+    text-align: right;
+  }
+  
+  .ai-message p {
+    background-color: rgba(255, 255, 255, 0.05);
+  }
+  
+  .chat-input {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    background-color: var(--color-background-neutral-default);
+    border-radius: var(--size-radius-full);
+    border: 1px solid var(--color-border-neutral-default);
+  }
+  
+  .text-input {
+    flex-grow: 1;
+    background: none;
+    border: none;
+    color: #fff;
+    font-family: var(--single-line-body-base-font-family);
+    font-size: var(--single-line-body-base-font-size);
+    padding: 0 10px;
+  }
+  
+  .text-input::placeholder {
+    color: var(--color-text-neutral-on-neutral);
+    opacity: 0.7;
+  }
+  
+  .history-button,
+  .submit-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+  }
+  
+  .visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+  
