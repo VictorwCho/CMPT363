@@ -1,0 +1,11 @@
+pre {
+    max-width: 100%; /* Ensure the content stays within the container */
+    word-wrap: break-word;
+    overflow-wrap: break-word; /* Prevent long words from overflowing */
+    white-space: pre-wrap;
+    line-height: 1.6; /* Increase line height for better readability */
+    margin-bottom: 1em;
+    padding: 10px;
+    box-sizing: border-box;
+    text-align: left;
+}

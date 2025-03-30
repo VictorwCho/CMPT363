@@ -166,10 +166,28 @@ function populateMuscleList() {
     });
 }
 
+function generateInformationPromptTemplate() {
+    let muscleList = myMuscles.map((muscle, index) => `${index + 1}. [${muscle}]`).join('\n');
+    let string =
+    `Tell me about these muscles in a specific format:
+    ${muscleList}
+    **For each muscle:**
+    - Format each entry as follows:
+    - **Name**: [Muscle Name]
+    - **Function**: [What does it do?]
+    - **Location**: [Where is it?]
+    Make sure the response is properly formatted using markdown headers and bullet points.`;
+    return string
+}
+
 generateInformationButton.addEventListener('click', async () => {
+    if (myMuscles.length === 0) {
+        alert('Please select at least one muscle to generate information by clicking on the blue circle.');
+        return
+    }
     const requestBody = {
         "contents": [{
-            "parts":[{"text": "write me 5 sentences"}]
+            "parts":[{"text": `${generateInformationPromptTemplate()}`}]
             }]
         }
 
