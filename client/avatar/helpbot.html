@@ -16,16 +16,16 @@
     </div>
     <main class="AI-chat-box">
       <section class="chat-messages">
-        <div class="scrollable">
+        <div class="scrollable" id="chat-container">
           <article class="user-message">
-            <p>User: Add in workouts for shoulders along side the tricep workouts</p>
+            <p>User: Add in workouts for shoulders alongside the tricep workouts</p>
           </article>
           <article class="ai-message">
             <p>Coach AI: Adding in shoulder workouts....</p>
           </article>
         </div>
       </section>
-      <form class="chat-input" role="search">
+      <form class="chat-input" id="chat-form">
         <label for="user-input" class="visually-hidden">Enter your prompt</label>
         <input
           type="text"
@@ -42,5 +42,45 @@
         </button>
       </form>
     </main>
+    
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const chatForm = document.getElementById("chat-form");
+        const userInput = document.getElementById("user-input");
+        const chatContainer = document.getElementById("chat-container");
+        
+        const botResponses = [
+          "Coach AI: Placeholder response 1...",
+          "Coach AI: Placeholder response 2...",
+          "Coach AI: Placeholder response 3..."
+        ];
+        let responseIndex = 0;
+        
+        chatForm.addEventListener("submit", (event) => {
+          event.preventDefault();
+          const userText = userInput.value.trim();
+          if (userText === "") return;
+          
+          // Add user message to chat
+          const userMessage = document.createElement("article");
+          userMessage.classList.add("user-message");
+          userMessage.innerHTML = `<p>User: ${userText}</p>`;
+          chatContainer.appendChild(userMessage);
+          
+          // Simulate bot response
+          setTimeout(() => {
+            const aiMessage = document.createElement("article");
+            aiMessage.classList.add("ai-message");
+            aiMessage.innerHTML = `<p>${botResponses[responseIndex]}</p>`;
+            chatContainer.appendChild(aiMessage);
+            
+            // Cycle through responses
+            responseIndex = (responseIndex + 1) % botResponses.length;
+          }, 1000);
+          
+          userInput.value = "";
+        });
+      });
+    </script>
   </body>
 </html>
