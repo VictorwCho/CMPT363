@@ -7,16 +7,21 @@
     <link rel="stylesheet" href="globals.css" />
     <link rel="stylesheet" href="styleguide.css" />
     <link rel="stylesheet" href="./avatar-css/helpbot.css" />
+    <link rel="stylesheet" href="chat-styles.css" />
   </head>
   <body>
-    <div class="home-button-wrapper">
+
+    <!-- Navigation Bar -->
+    <nav class="top-nav">
       <a href="index.html" class="home-button">
-        <img src="assets/icon/home.png" alt="Home" class="home-icon">
+        <img class="home-icon" src="assets/icon/home.png" alt="Home">
       </a>
-    </div>
+    </nav>
+
+    <!-- Chat Container -->
     <main class="AI-chat-box">
-      <section class="chat-messages">
-        <div class="scrollable" id="chat-container">
+      <section class="chat-messages" id="chat-container">
+        <div class="scrollable">
           <article class="user-message">
             <p>User: Add in workouts for shoulders alongside the tricep workouts</p>
           </article>
@@ -25,8 +30,9 @@
           </article>
         </div>
       </section>
+
+      <!-- Chat Input -->
       <form class="chat-input" id="chat-form">
-        <label for="user-input" class="visually-hidden">Enter your prompt</label>
         <input
           type="text"
           id="user-input"
@@ -34,11 +40,8 @@
           placeholder="Enter your prompt..."
           aria-label="Enter your prompt"
         />
-        <button type="button" class="history-button" aria-label="View chat history">
-          <img class="clock" src="https://c.animaapp.com/1ZkV7iSm/img/clock-1.svg" alt="" />
-        </button>
         <button type="submit" class="submit-button" aria-label="Send message">
-          <img class="plus-square" src="https://c.animaapp.com/1ZkV7iSm/img/plus-square-1.svg" alt="" />
+          <img class="send-icon" src="assets/icon/send.svg" alt="Send">
         </button>
       </form>
     </main>
@@ -60,27 +63,29 @@
           event.preventDefault();
           const userText = userInput.value.trim();
           if (userText === "") return;
-          
-          // Add user message to chat
+
+          // Add user message
           const userMessage = document.createElement("article");
           userMessage.classList.add("user-message");
           userMessage.innerHTML = `<p>User: ${userText}</p>`;
           chatContainer.appendChild(userMessage);
-          
+          chatContainer.scrollTop = chatContainer.scrollHeight;
+
           // Simulate bot response
           setTimeout(() => {
             const aiMessage = document.createElement("article");
             aiMessage.classList.add("ai-message");
             aiMessage.innerHTML = `<p>${botResponses[responseIndex]}</p>`;
             chatContainer.appendChild(aiMessage);
-            
-            // Cycle through responses
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+
             responseIndex = (responseIndex + 1) % botResponses.length;
           }, 1000);
-          
+
           userInput.value = "";
         });
       });
     </script>
+
   </body>
 </html>
