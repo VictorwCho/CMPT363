@@ -22,9 +22,10 @@ app.get('/', (req, res) => {
     res.status(200).send('Welcome to the root endpoint!');
 });
 
-// /generate endpoint
-let generatedData = [];
-app.post('/generate', (req, res) => {
+// /generate information endpoint
+let generatedInformationData = [];
+let generatedWorkoutData = [];
+app.post('/generate-information', (req, res) => {
     const requestData = req.body; // Automatically parsed by express.json()
 
     // Define the Google API endpoint and your API key
@@ -49,7 +50,7 @@ app.post('/generate', (req, res) => {
             try {
                 const parsedResponse = JSON.parse(apiResponseData);
                 const content = parsedResponse["candidates"][0]["content"]["parts"][0]["text"];
-                generatedData.push(content);
+                generatedInformationData.push(content);
                 console.log("Push successful:", content);
             } catch (error) {
                 console.error('Error parsing JSON and storin:', error);
@@ -66,15 +67,67 @@ app.post('/generate', (req, res) => {
     apiReq.end();
 });
 
-app.get('/generated', (req, res) => {
-    let end = generatedData.length;
-    res.status(200).json(generatedData[end-1]);
+app.get('/last-generated-information', (req, res) => {
+    let end = generatedInformationData.length;
+    res.status(200).json(generatedInformationData[end-1]);
 });
 
-app.get('/generatedAll', (req, res) => {
-    res.status(200).json(generatedData);
+app.get('/generate-information-history', (req, res) => {
+    res.status(200).json(generatedInformationData);
 });
 
+// generate workout endpoint
+app.post('/generate-workout', (req, res) => {
+    const requestData = req.body; // Automatically parsed by express.json()
+
+    // Define the Google API endpoint and your API key
+    const options = {
+        hostname: 'generativelanguage.googleapis.com',
+        path: `/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`,
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    };
+
+    // Make the POST request to the Google API
+    const apiReq = https.request(options, apiRes => {
+        let apiResponseData = '';
+        apiRes.on('data', chunk => {
+            apiResponseData += chunk;
+        });
+
+        apiRes.on('end', () => {
+            res.status(apiRes.statusCode).json(JSON.parse(apiResponseData)); // Forward the API response
+            try {
+                const parsedResponse = JSON.parse(apiResponseData);
+                const content = parsedResponse["candidates"][0]["content"]["parts"][0]["text"];
+                let cleanedData = content.replace(/```json\n|```/g, '');
+                let parsedData = JSON.parse(cleanedData);
+                generatedWorkoutData.push(parsedData);
+                console.log("Push successful:", parsedData);
+            } catch (error) {
+                console.error('Error parsing JSON and storin:', error);
+            }
+        });
+    });
+
+    apiReq.on('error', error => {
+        res.status(500).json({ error: error.message });
+    });
+
+    // Send the request body to the Google API
+    apiReq.write(JSON.stringify(requestData));
+    apiReq.end();
+});
+
+app.get('/all-generated-workout', (req, res) => {
+    res.status(200).json(generatedWorkoutData);
+    console.log("contents of workout\n");
+    console.log(generatedWorkoutData);
+});
+
+    
 // 404 handler for undefined routes
 app.use((req, res) => {
     res.status(404).send('Not Found');

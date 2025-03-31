@@ -3,7 +3,7 @@ const body = document.getElementById("sandbox");
 const here = document.getElementById("here");
 
 // Function to display text letter by letter
-async function displayTextLetterByLetter(element, text, delay = 50) {
+async function displayTextLetterByLetter(element, text, delay = 10) {
     element.innerHTML = ''; // Clear the element's content
     for (const letter of text) {
         element.innerHTML += letter; // Add the letter to the element
@@ -12,7 +12,7 @@ async function displayTextLetterByLetter(element, text, delay = 50) {
 }
 
 onload = async () => {
-    const response = await fetch(`${URL}/generated`);
+    const response = await fetch(`${URL}/last-generated-information`);
     const data = await response.json();
     const p = document.createElement('pre');
     p.innerHTML = data;
@@ -24,7 +24,7 @@ onload = async () => {
 
 const viewHistory = document.getElementById('sandbox-button');
 viewHistory.addEventListener('click', async () => {
-    const response = await fetch(`${URL}/generatedAll`);
+    const response = await fetch(`${URL}/generated-information-history`);
     const data = await response.json();
     const history = document.createElement('history');
     data.forEach((item) => {

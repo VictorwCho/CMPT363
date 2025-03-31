@@ -192,7 +192,7 @@ generateInformationButton.addEventListener('click', async () => {
         }
 
     try {
-        const response = await fetch(`${URL}/generate`, {
+        const response = await fetch(`${URL}/generate-information`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -204,7 +204,7 @@ generateInformationButton.addEventListener('click', async () => {
             const data = await response.json();
             console.log('Response from server:', data);
             console.log('Information generated successfully!');
-            window.location.href = 'sandbox.html';
+            window.location.href = 'information.html';
         } else {
             console.error('Error:', response.statusText);
             console.log('Failed to generate information.');
