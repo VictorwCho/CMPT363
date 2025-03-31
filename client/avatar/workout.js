@@ -6,7 +6,7 @@ const workoutContainer = document.getElementById('workout-container');
     i need to retrieve all the information
 */
 onload = async () => {
-    const response = await fetch(`${URL}/all-generated-workout`);
+    const response = await fetch(`${URL}/all-generated-workouts`);
     const data = await response.json();
     iterateThroughWorkoutData(data);
 }
@@ -33,6 +33,7 @@ function iterateThroughWorkoutData(data) {
 
         groupedData[muscleGroupName].forEach(workout => {
             const workoutInformation = createWorkoutInformation(
+                muscleGroupName,
                 workout.exercise_name,
                 workout.instructions,
                 workout.sets,
@@ -46,8 +47,8 @@ function iterateThroughWorkoutData(data) {
 
 function createWorkoutCard(muscle) {
     const card = document.createElement('section');
-    card.classList.add(`${muscle}-workout-card`);
-    card.classList.add('workout-card');
+    let formatedString = muscle.replace(/ /g, '-').toLowerCase();
+    card.classList.add(`${formatedString}-workout-card`);
     
     const title = document.createElement('h2');
     let titleString = captializeFirstLetter(muscle);
@@ -62,7 +63,7 @@ function captializeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
-function createWorkoutInformation(exerciseName, instructions, sets, reps) {
+function createWorkoutInformation(muscleGroupName, exerciseName, instructions, sets, reps) {
     const description = document.createElement('article');
     description.classList.add('workout-card-information');
 
@@ -76,8 +77,18 @@ function createWorkoutInformation(exerciseName, instructions, sets, reps) {
     const instructionTitle = document.createElement('p');
     instructionTitle.innerText = 'Instructions:';
 
-    const instruction = document.createElement('p');
-    instruction.innerText = `${instructions}`;
+    const instructionContainer = document.createElement('div');
+    instructionContainer.classList.add('instruction-container');
+
+    instructions.forEach(step => {
+        const instruction = document.createElement('p');
+        instruction.innerText = step;
+        instructionContainer.appendChild(instruction);
+    });
+
+
+    // const instruction = document.createElement('p');
+    // instruction.innerText = `${instructions}`;
 
     const set = document.createElement('p');
     set.innerText = `Sets: ${sets}`;
@@ -90,12 +101,20 @@ function createWorkoutInformation(exerciseName, instructions, sets, reps) {
 
     description.appendChild(title);
     description.appendChild(instructionLabel);
-    description.appendChild(instruction);
+    description.appendChild(instructionContainer);
     description.appendChild(set);
     description.appendChild(rep);
     description.appendChild(removeWorkoutButton);
     removeWorkoutButton.addEventListener('click', () => {
         description.remove();
+        let id = muscleGroupName.replace(/ /g, '-').toLowerCase();
+        let workoutCard = document.querySelector(`.${id}-workout-card`);
+        if (workoutCard) {
+            let workoutInformation = workoutCard.querySelectorAll('.workout-card-information');
+            if (workoutInformation.length === 0) {
+                workoutCard.remove();
+            }
+        }
     });
     return description;
 }

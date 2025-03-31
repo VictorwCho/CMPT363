@@ -77,7 +77,7 @@ app.get('/generate-information-history', (req, res) => {
 });
 
 // generate workout endpoint
-app.post('/generate-workout', (req, res) => {
+app.post('/generate-workouts', (req, res) => {
     const requestData = req.body; // Automatically parsed by express.json()
 
     // Define the Google API endpoint and your API key
@@ -121,7 +121,7 @@ app.post('/generate-workout', (req, res) => {
     apiReq.end();
 });
 
-app.get('/all-generated-workout', (req, res) => {
+app.get('/all-generated-workouts', (req, res) => {
     res.status(200).json(generatedWorkoutData);
     console.log("contents of workout\n");
     console.log(generatedWorkoutData);

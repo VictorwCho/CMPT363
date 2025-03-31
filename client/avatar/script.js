@@ -15,6 +15,8 @@ const muscleGroups = {
 const URL = 'https://localhost:3001'
 const ellipses = document.querySelectorAll('.ellipse');
 const generateInformationButton = document.getElementById('generate-information');
+const generateWorkoutButton = document.getElementById('generate-workout');
+
 var myMuscles = [];
 
 /**
@@ -166,6 +168,31 @@ function populateMuscleList() {
     });
 }
 
+function generateWorkoutPromptTemplate() {
+    let muscleList = myMuscles.join(', ');
+    let string = 
+    `
+    "Generate beginner-friendly workout plans based on an array of selected muscle groups.
+    For each muscle group in the array:[${muscleList}]\n
+    - Group the exercises under the respective muscle group.
+    \n- Provide clear and concise explanations for how to perform each exercise, with instructions 
+    as numbered steps.\n- Specify the number of sets and repetitions per set for each exercise.
+    \n- Ensure the workouts are designed for beginners—quick to read and easy to understand.
+    \n\nFormat the response in JSON with the following structure:
+    \n{\n  \"muscle_groups\": 
+    [\n    {\n      \"muscle_group\": \"string\",\n      
+    \"workouts\": [\n        {\n          \"exercise_name\": \"string\",\n          
+    \"instructions\": [\n            \"1. Step 1 explanation goes here.\",\n            
+    \"2. Step 2 explanation goes here.\",\n            
+    \"3. Step 3 explanation goes here.\"\n          ],\n          
+    \"sets\": number,\n          
+    \"repetitions_per_set\": number\n        }\n      ]\n    }\n  ]\n}\n
+    Ensure the response adheres to the specified JSON format, allowing for multiple muscle 
+    groups in the array, and includes numbered steps in the instructions for clarity."
+    `
+    return string;
+}
+
 function generateInformationPromptTemplate() {
     let muscleList = myMuscles.map((muscle, index) => `${index + 1}. [${muscle}]`).join('\n');
     let string =
@@ -177,8 +204,44 @@ function generateInformationPromptTemplate() {
     - **Function**: [What does it do?]
     - **Location**: [Where is it?]
     Make sure the response is properly formatted using markdown headers and bullet points.`;
-    return string
+    return string;
 }
+
+generateWorkoutButton.addEventListener('click', async () => {
+    if (myMuscles.length === 0) {
+        alert('Please select at least one muscle to generate a workout by clicking on the blue circle.');
+        return
+    }
+
+    const requestBody = {
+        "contents": [{
+            "parts":[{"text": `${generateWorkoutPromptTemplate()}`}]
+            }]
+        }
+
+    try {
+        const response = await fetch(`${URL}/generate-workouts`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(requestBody),
+        });
+
+        if (response.ok) {
+            const data = await response.json();
+            console.log('Response from server:', data);
+            console.log('Workout generated successfully!');
+            window.location.href = 'workout.html';
+        } else {
+            console.error('Error:', response.statusText);
+            console.log('Failed to generate workout.');
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        console.log('An error occurred while generating workout.');
+    }
+});
 
 generateInformationButton.addEventListener('click', async () => {
     if (myMuscles.length === 0) {
