@@ -345,6 +345,17 @@
   width: 100%;
 }
 
+#muscle-list-container p {
+  font-family: var(--single-line-body-base-font-family);
+  font-weight: var(--single-line-body-base-font-weight);
+  font-size: var(--single-line-body-base-font-size);
+  color: var(--m3syslight-medium-contraston-primary);
+  text-align: center;
+  letter-spacing: var(--single-line-body-base-letter-spacing);
+  line-height: var(--single-line-body-base-line-height);
+  font-style: var(--single-line-body-base-font-style);
+}
+
 #muscle-list-content {
   border: 1px solid #fff;
   border-radius: var(--button-radius);
