@@ -102,8 +102,8 @@ function popup(muscleGroupName) {
         
         const container = document.createElement('div');
         container.id = "popup-container";
-        container.appendChild(input);
         container.appendChild(label);
+        container.appendChild(input);
         
         muscleSelectionOptions.appendChild(container);
     });

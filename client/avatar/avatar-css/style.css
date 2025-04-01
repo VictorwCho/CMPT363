@@ -244,11 +244,24 @@
 
 /* Popup content */
 .popup-content {
-  background-color: white;
+  background-color: var(--color-background-default);
   padding: 20px;
   border-radius: 10px;
   text-align: center;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  min-width: 50%;
+  min-height: 50%;
+}
+
+#popup-title {
+  font-family: var(--m3-title-large-font-family);
+  font-weight: var(--m3-title-large-font-weight);
+  font-size: var(--m3-title-large-font-size);
+  color: var(--m3syslight-medium-contraston-primary);
+  text-align: center;
+  letter-spacing: var(--m3-title-large-letter-spacing);
+  line-height: var(--m3-title-large-line-height);
+  font-style: var(--m3-title-large-font-style);
 }
 
 /* Close button */
@@ -266,14 +279,39 @@
   justify-content: center;
   align-items: center;
   gap: 10px;
+  font-family: var(--single-line-body-base-font-family);
+  font-weight: var(--single-line-body-base-font-weight);
+  font-size: var(--single-line-body-base-font-size);
+  color: var(--m3syslight-medium-contraston-primary);
+  margin: 1rem;
+
+}
+
+#popup-options {
+  padding: 1rem;
 }
 
 #popup-container {
   display: flex;
   flex-direction: row;
-  justify-content: left;
+  justify-content: right;
   align-items: center;
-  gap: 10px;
+  gap: 20px;
+  margin: .5rem;
+}
+
+#popup-button-add {
+  background-color: var(--button-color-default);
+  border-radius: var(--button-radius);
+  cursor: var(--button-cursor-hover);
+  font-size: var(--button-font-size);
+  padding: var(--button-padding);
+  margin: var(--button-margin);
+  color: var(--m3syslight-medium-contraston-primary);
+  font-family: var(--single-line-body-base-font-family);
+  font-weight: var(--single-line-body-base-font-weight);
+  min-width: 25%;
+
 }
 
 /* Muscle list */
@@ -286,6 +324,17 @@
   color: #fff;
 }
 
+#muscle-list-title {
+  font-family: var(--m3-title-large-font-family);
+  font-weight: var(--m3-title-large-font-weight);
+  font-size: var(--m3-title-large-font-size);
+  color: var(--m3syslight-medium-contraston-primary);
+  text-align: center;
+  letter-spacing: var(--m3-title-large-letter-spacing);
+  line-height: var(--m3-title-large-line-height);
+  font-style: var(--m3-title-large-font-style);
+}
+
 #muscle-list-container {
   display: flex;
   flex-direction: row;
@@ -293,12 +342,33 @@
   align-items: center;
   gap: 10px;
   padding: 5px;
+  width: 100%;
 }
 
-#muscle-list-buttons {
+#muscle-list-content {
+  border: 1px solid #fff;
+  border-radius: var(--button-radius);
+  width: 100%;
+  padding: 1rem;
+}
+
+#muscle-list-buttons button {
   display: flex;
   flex-direction: column;
   justify-content: center;
   gap: 10px;
-  margin: 1rem;
+  width: 100%;
+}
+
+#muscle-list-buttons button {
+  border-radius: var(--button-radius);
+  cursor: var(--button-cursor-hover);
+  font-size: var(--button-font-size);
+  padding: var(--button-padding);
+  margin: var(--button-margin);
+  background-color: var(--button-color-default);
+  font-family: var(--single-line-body-base-font-family);
+  font-weight: var(--single-line-body-base-font-weight);
+  color: var(--m3syslight-medium-contraston-primary);
+
 }
