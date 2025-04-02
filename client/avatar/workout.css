@@ -1,96 +1,100 @@
 body {
-    background-color: var(--color-background-default);
+    background: #111; /* Dark theme */
+    color: white;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
 }
 
-h1 {
-    font-family: var(--m3-title-large-font-family);
-    font-size: var(--m3-title-large-font-size);
-    font-weight: var(--m3-title-large-font-weight);
-    line-height: var(--m3-title-large-line-height);
-}
-
+/*Workout Container */
 #workout-container {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    padding: 20px;
+    gap: 20px;
 }
 
-section  {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin: 10px 0;
-    padding: 10px;
-    width: 80%;
+/* Workout Section */
+section {
+    background: #222;
+    padding: 20px;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 600px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
 }
 
+/* Exercise Cards */
 article {
-    display: flex;
-    flex-direction: column;
-    align-items: start;
-    justify-content: center;
-    margin: 10px 0;
-    padding: 10px;
-    border: 2px solid #ccc;
-    border-radius: 20px;
-    width: inherit;
+    background: #333;
+    padding: 15px;
+    border-radius: 8px;
+    margin-top: 10px;
+    border-left: 5px solid #5A9CFF;
 }
 
-h3 {
-    text-decoration: underline;
-    text-underline-offset: var(--h3-underline-offset);
+/* Headings */
+h2, h3 {
+    color: #5A9CFF;
+    margin-bottom: 10px;
 }
 
-h2, h3, h4, label {
-    color: var(--h1-color);
-    font-family: var(--m3-title-large-font-family);
-    font-weight: var(--m3-title-large-font-weight);
-    font-size: var(--m3-title-large-font-size);
-    line-height: var(--m3-title-large-line-height);
-    letter-spacing: var(--m3-title-large-letter-spacing);
-    font-style: var(--m3-title-large-font-style);
-
-}
-
+/* Text Styling */
 p {
-    font-family: var(--single-line-body-base-font-family);
-    font-weight: var(--single-line-body-base-font-weight);
-    font-size: var(--single-line-body-base-font-size);
-    line-height: var(--single-line-body-base-line-height);
-    letter-spacing: var(--single-line-body-base-letter-spacing);
-    font-style: var(--single-line-body-base-font-style);
-    color: var(--p-color);
-    margin-left: 20px;
-    text-indent: -20px;
+    color: #ddd;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+/* Buttons */
+button {
+    background: #5A9CFF;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+button:hover {
+    background: #4A8CE0;
+}
+
+/* Navigation Bar */
+.top-nav {
+    display: flex;
+    align-items: center;
+    background: #222;
+    padding: 10px 20px;
+    height: 60px;
+    color: white;
   }
   
-p span {
-    display: inline-block;
-    padding-left: 20px;
-}
+  .top-nav .home-button {
+    display: flex;
+    align-items: center;
+  }
   
-button {
-    background-color: var(--button-color-red);
-    color: var(--p-color);
-    padding: var(--button-padding);
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: var(--button-font-size);
-    margin: var(button-margin);
-    cursor: var(--button-cursor-hover);
-    border-radius: var(--button-radius);
-}
+  .home-icon {
+    width: 30px;
+    height: 30px;
+  }
 
-a {
-    display: inline-block;
-    width: 24px;
-    height: 24px;
-    background-image: url('./assets/icon/home.png');
-    background-size: contain;
-    background-repeat: no-repeat;
-    text-indent: -9999px;
-    overflow: hidden;
+/* Home Button */
+.home-icon {
+    width: 35px;
+    height: 35px;
+  }
+  
+
+@media (max-width: 600px) {
+    #workout-container {
+        padding: 10px;
+    }
+    section {
+        width: 100%;
+    }
 }
