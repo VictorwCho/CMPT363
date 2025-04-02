@@ -249,8 +249,8 @@
   border-radius: 10px;
   text-align: center;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  min-width: 50%;
-  min-height: 50%;
+  min-width: 25%;
+  min-height: 25%;
 }
 
 #popup-title {
@@ -382,4 +382,30 @@
   font-weight: var(--single-line-body-base-font-weight);
   color: var(--m3syslight-medium-contraston-primary);
 
+}
+#loading-container {
+  background-color: var(--color-background-default);
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+}
+
+/* loadingbar */
+#loading-bar-container {
+  width: 50%;
+  height: 10px;
+  background-color: var(--color-background-neutral-default);
+  border-radius: 5px;
+  overflow: hidden;
+  margin: 20px 0;
+  display: block;
+}
+
+#loading-bar {
+  width: 0;
+  height: 100%;
+  background-color: #5a9cff;
+  transition: width 0.5s ease;
 }

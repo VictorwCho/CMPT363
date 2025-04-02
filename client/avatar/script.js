@@ -4,7 +4,7 @@
 const muscleGroups = {
     "Chest": ["Upper Chest", "Lower Chest"],
     "Upper Arms": ["Biceps", "Triceps", "Forearms"],
-    "Back": ["Lats", "Traps", "Rhomboids" ],
+    "Back": ["Lats", "Traps", "Rhomboids"],
     "Shoulders": ["Deltoids", "Rotator Cuff"],
     "Lower Arms": ["Flexors", "Extensors"],
     "Lower Legs": ["Calves", "Shins"],
@@ -16,6 +16,12 @@ const URL = 'https://localhost:3001'
 const ellipses = document.querySelectorAll('.ellipse');
 const generateInformationButton = document.getElementById('generate-information');
 const generateWorkoutButton = document.getElementById('generate-workout');
+const errorMessageServer = 
+    `We’re sorry! The server encountered an issue and is currently unavailable. Please try again later.\n\nIf the problem persists, contact support or check our status page at www.support.com for updates.`
+const errorMessageFailedRetrieval = 
+    `We’re unable to retrieve information from the server at the moment. This may be due to a network issue or server downtime. Please check your internet connection and try again.\n\nIf the issue persists, contact support or visit our status page at www.support.com for updates.`
+const helpMessage = 
+    `Click on the blue dots to open a popup window. From there, you can select and add muscles to generate detailed information.\n\nIf you're unsure which muscles to choose, hover over the blue dots for descriptions or consult the guide for further assistance.`
 
 var myMuscles = [];
 
@@ -23,11 +29,53 @@ var myMuscles = [];
  * Add an event listener to each ellipse
  */
 ellipses.forEach(ellipse => {
+    const elipseId = document.getElementById(ellipse.id);
+    elipseId.addEventListener('mouseover', () => {
+        elipseId.style.cursor = 'pointer';
+        elipseId.style.transform = 'scale(1.7)';
+        elipseId.style.transition = 'transform 0.3s ease-in-out';
+        const muscleGroupName = getMuscleGroup(ellipse.id);
+        showHoverMessage(muscleGroupName, ellipse);
+    });
+
+    elipseId.addEventListener('mouseout', () => {
+        elipseId.style.cursor = 'default';
+        elipseId.style.transform = 'scale(1)';
+        hideHoverMessage();
+    });
+
     ellipse.addEventListener('click', () => {
         let muscleGroupName = getMuscleGroup(ellipse.id);
         popup(muscleGroupName);
     });
 });
+
+function showHoverMessage(message, target) {
+    const hoverMessage = document.createElement('div');
+    hoverMessage.id = 'hover-message';
+    hoverMessage.innerText = message;
+    hoverMessage.style.position = 'absolute';
+    hoverMessage.style.backgroundColor = 'rgba(0, 0, 0, 0.8)';
+    hoverMessage.style.color = 'white';
+    hoverMessage.style.padding = '5px 10px';
+    hoverMessage.style.borderRadius = '5px';
+    hoverMessage.style.fontSize = '12px';
+    hoverMessage.style.zIndex = '1000';
+    hoverMessage.style.fontFamily = 'Inter, Helvetica';
+    // Position the message near the ellipse
+    const rect = target.getBoundingClientRect();
+    hoverMessage.style.top = `${rect.top - 30}px`; // Position above the ellipse
+    hoverMessage.style.left = `${rect.left + rect.width / 2 - 50}px`; // Center horizontally
+
+    document.body.appendChild(hoverMessage);
+}
+
+function hideHoverMessage() {
+    const hoverMessage = document.getElementById('hover-message');
+    if (hoverMessage) {
+        hoverMessage.remove();
+    }
+}
 
 /**
  * This function maps the ellipse id to the muscle group name.
@@ -209,17 +257,33 @@ function generateInformationPromptTemplate() {
 
 generateWorkoutButton.addEventListener('click', async () => {
     if (myMuscles.length === 0) {
-        alert('Please select at least one muscle to generate a workout by clicking on the blue circle.');
+        alert(`${helpMessage}`);
         return
     }
 
     const requestBody = {
         "contents": [{
             "parts":[{"text": `${generateWorkoutPromptTemplate()}`}]
-            }]
-        }
+        }]
+    }
 
+    // Show the loading bar
+    const loadingBar = document.getElementById('loading-bar');
+    loadingBar.style.width = '0%';
+    const loadingBarContainer = document.getElementById('loading-container');
+    loadingBarContainer.style.display = 'flex';
+    const section = document.getElementById('section-avatar');
+    
     try {
+        section.style.display = 'none';
+        let loadingBarProgress = 0;
+        const interval = setInterval(() => {
+            if (loadingBarProgress < 90) {
+                loadingBarProgress += 10;
+                loadingBar.style.width = `${loadingBarProgress}%`;
+            }
+        }, 250);// update every 250ms
+
         const response = await fetch(`${URL}/generate-workouts`, {
             method: 'POST',
             headers: {
@@ -228,24 +292,39 @@ generateWorkoutButton.addEventListener('click', async () => {
             body: JSON.stringify(requestBody),
         });
 
+        clearInterval(interval);
+
         if (response.ok) {
             const data = await response.json();
             console.log('Response from server:', data);
             console.log('Workout generated successfully!');
-            window.location.href = 'workout.html';
+            
+            loadingBarContainer.style.display = 'none';
+            setTimeout(() => {
+                window.location.href = 'workout.html';
+            }, 1000);
         } else {
             console.error('Error:', response.statusText);
             console.log('Failed to generate workout.');
+            alert(`{errorMessageFailedRetrieval}`);
+            loadingBarContainer.style.display = 'none';
+            section.style.display = 'flex';
         }
     } catch (error) {
         console.error('Error:', error);
         console.log('An error occurred while generating workout.');
+        alert('${errorMessageServer}');
+        loadingBarContainer.style.display = 'none';
+        section.style.display = 'flex';
     }
 });
 
+/**
+ * Generate information
+ */
 generateInformationButton.addEventListener('click', async () => {
     if (myMuscles.length === 0) {
-        alert('Please select at least one muscle to generate information by clicking on the blue circle.');
+        alert(`${helpMessage}`);
         return
     }
     const requestBody = {
@@ -254,7 +333,23 @@ generateInformationButton.addEventListener('click', async () => {
             }]
         }
 
+    // Show the loading bar
+    const loadingBar = document.getElementById('loading-bar');
+    loadingBar.style.width = '0%';
+    const loadingBarContainer = document.getElementById('loading-container');
+    loadingBarContainer.style.display = 'flex'; // Show the loading bar container
+    const section = document.getElementById('section-avatar');
+
     try {
+        section.style.display = 'none'; // Hide the section content
+        let loadingBarProgress = 0;
+        const interval = setInterval(() => {
+            if (loadingBarProgress < 90) {
+                loadingBarProgress += 10;
+                loadingBar.style.width = `${loadingBarProgress}%`;
+            }
+        }, 250);// update every 250ms
+
         const response = await fetch(`${URL}/generate-information`, {
             method: 'POST',
             headers: {
@@ -263,17 +358,29 @@ generateInformationButton.addEventListener('click', async () => {
             body: JSON.stringify(requestBody),
         });
 
+        clearInterval(interval); // Clear the interval when the request is complete
+
         if (response.ok) {
             const data = await response.json();
             console.log('Response from server:', data);
             console.log('Information generated successfully!');
-            window.location.href = 'information.html';
+
+            loadingBar.style.width = '100%'; // Set the loading bar to 100%
+            setTimeout(() => {
+                window.location.href = 'information.html';
+            }, 1000); // Redirect after 1000ms
         } else {
             console.error('Error:', response.statusText);
             console.log('Failed to generate information.');
+            alert(`${errorMessageFailedRetrieval}`);
+            loadingBarContainer.style.display = 'none'; // Hide the loading bar
+            section.style.display = 'flex'; // Show the main content again
         }
     } catch (error) {
         console.error('Error:', error);
         console.log('An error occurred while generating information.');
+        alert(`${errorMessageServer}`);
+        loadingBarContainer.style.display = 'none'; // Hide the loading bar
+        section.style.display = 'flex'; // Show the main content again
     }
 });
