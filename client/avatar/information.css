@@ -52,17 +52,50 @@ main {
     transition: background 0.3s ease;
 }
 
+#sandbox-all-container {
+    margin-top: 20px;
+    overflow-y: scroll;
+    max-height: 200px;
+}
+
+#sandbox-all-container::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+#sandbox-all-container::-webkit-scrollbar-track {
+    background: #1E1E1E;
+    border-radius: 5px;
+}
+
+#sandbox-all-container::-webkit-scrollbar-thumb {
+    background: #5A9CFF;
+    border-radius: 5px;
+    border: 2px solid #1E1E1E;
+}
+
+#sandbox-all-container::-webkit-scrollbar-thumb:hover {
+    background: #4A8CE0;
+}
+
+/* For Firefox */
+#sandbox-all-container {
+    scrollbar-width: thin;
+    scrollbar-color: #5A9CFF #1E1E1E;
+}
+
 #sandbox-button:hover {
     background-color: #4A8CE0;
 }
 
 /* History Text */
-#here {
-    overflow-y: scroll;
-    max-height: 300px;
+.here {
     font-size: 18px;
-    margin-top: 15px;
-    margin-bottom: 15px;
+    margin: 20px;
+    border : 1px solid #5A9CFF;
+    border-radius: 5px;
+    padding: 10px;
+    cursor: pointer;
 }
 
 /* Links */

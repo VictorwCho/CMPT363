@@ -1,6 +1,6 @@
 const URL = 'https://localhost:3001'
 const body = document.getElementById("sandbox");
-const here = document.getElementById("here");
+const sandboxAllContainer = document.getElementById("sandbox-all-container");
 let string = "";
 // const submitButton = document.getElementById('submit-user-response');
 
@@ -85,12 +85,12 @@ viewHistory.addEventListener('click', async () => {
 
     let information = data;
     console.log(information);
-    // const informationContainer = document.getElementById('information-container');
-    const informationContainer = document.getElementById('sandbox-all');
+    const informationContainer = document.getElementById('sandbox-all-container');
     const informationItem = document.createElement('article');
     informationItem.className = 'information-sandbox-all';
 
     information.forEach((item) => {
+        const here = document.createElement('p');
         item.muscles.forEach((muscle) => {
             let titleFunction = `${Object.keys(muscle)[1]}`;
             titleFunction = captializeFirstLetter(titleFunction);
@@ -111,11 +111,10 @@ viewHistory.addEventListener('click', async () => {
         });
 
 
+        informationContainer.appendChild(informationItem);
+        here.innerHTML = "";
+        here.innerHTML = string;
+        here.className = 'here';
+        informationItem.appendChild(here);
     });
-    informationContainer.appendChild(informationItem);
-    here.innerHTML = "";
-    here.innerHTML = string;
-    informationItem.appendChild(here);
-
-    // here.appendChild(informationContainer);
 });
