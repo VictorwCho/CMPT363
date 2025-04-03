@@ -76,9 +76,10 @@ app.get('/last-generated-information', (req, res) => {
 });
 
 app.get('/generate-information-history', (req, res) => {
-    res.status(200).json(generatedInformationData);
+    let generatedInformationMinusEnd = generatedInformationData.slice(0, -1);
+    res.status(200).json(generatedInformationMinusEnd);
     console.log("contents of information\n");
-    console.log(generatedInformationData[end - 1]);
+    console.log(generatedInformationMinusEnd);
 });
 
 // generate workout endpoint
