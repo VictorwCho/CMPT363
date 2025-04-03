@@ -49,9 +49,12 @@ app.post('/generate-information', (req, res) => {
             res.status(apiRes.statusCode).json(JSON.parse(apiResponseData)); // Forward the API response
             try {
                 const parsedResponse = JSON.parse(apiResponseData);
+                console.log(parsedResponse);
                 const content = parsedResponse["candidates"][0]["content"]["parts"][0]["text"];
-                generatedInformationData.push(content);
-                console.log("Push successful:", content);
+                const cleanedData = content.replace(/```json\n|```/g, '');
+                const parsedData = JSON.parse(cleanedData);
+                generatedInformationData.push(parsedData);
+                console.log("Push successful:", parsedData);
             } catch (error) {
                 console.error('Error parsing JSON and storin:', error);
             }
@@ -74,6 +77,8 @@ app.get('/last-generated-information', (req, res) => {
 
 app.get('/generate-information-history', (req, res) => {
     res.status(200).json(generatedInformationData);
+    console.log("contents of information\n");
+    console.log(generatedInformationData[end - 1]);
 });
 
 // generate workout endpoint

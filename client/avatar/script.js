@@ -244,14 +244,21 @@ function generateWorkoutPromptTemplate() {
 function generateInformationPromptTemplate() {
     let muscleList = myMuscles.map((muscle, index) => `${index + 1}. [${muscle}]`).join('\n');
     let string =
-    `Tell me about these muscles in a specific format:
-    ${muscleList}
+    `Tell me about these muscles in a specific format: 
+        ${muscleList}
+
     **For each muscle:**
-    - Format each entry as follows:
-    - **Name**: [Muscle Name]
-    - **Function**: [What does it do?]
-    - **Location**: [Where is it?]
-    Make sure the response is properly formatted using markdown headers and bullet points.`;
+    Provide the information in JSON format, structured for beginners and avoiding overly technical terms. Use the following template:
+    {
+    "muscles": [
+        {
+        "name": "string", // Name of the muscle
+        "function": "string", // What does it do? (Beginner-friendly explanation)
+        "location": "string" // Where is it? (Simple description of its location)
+        }
+    ]
+    }
+    Ensure the response adheres to this JSON format and includes clear, concise, and beginner-friendly explanations for the muscles listed in the input.`
     return string;
 }
 

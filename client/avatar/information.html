@@ -3,17 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Muscle Information</title>
     <link rel="stylesheet" href="information.css">
+    <link rel="stylesheet" href="globals.css" />
+    <link rel="stylesheet" href="styleguide.css" />
+    <link rel="stylesheet" href="helpbot.css" />
 </head>
 <body>
-    <a href="index.html">Back</a>
-    <div id="sandbox">
-    </div>
-    <div id="sandbox-all">
-        <p id="here"></p>
-        <button id="sandbox-button">View History</button>
-    </div>
+
+    <nav class="top-nav">
+        <a href="index.html" class="home-button">
+            <img class="home-icon" src="assets/icon/home.png" alt="Home">
+        </a>
+    </nav>
+
+    <main class="AI-chat-box">
+        <section class="chat-messages" id="chat-container">
+            <div class="scrollable">
+                <article class="ai-message">
+                    <div id="information-container">
+                    </div>
+                </article>
+            </div>
+        </section>
+            
+        <section class="chat-input" id="chat-form">
+            <input
+            type="text"
+            id="user-input"
+            class="text-input"
+            placeholder="Enter your prompt..."
+            aria-label="Enter your prompt"
+            />
+            <button id="submit-user-response" class="submit-button" aria-label="Send message">
+                <img class="send-icon" src="assets/icon/send.svg" alt="Send">
+            </button>
+        </section>
+    </main>
 </body>
 </html>
 
