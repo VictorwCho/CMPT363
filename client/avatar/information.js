@@ -2,7 +2,7 @@ const URL = 'https://localhost:3001'
 const body = document.getElementById("sandbox");
 const here = document.getElementById("here");
 let string = "";
-const submitButton = document.getElementById('submit-user-response');
+// const submitButton = document.getElementById('submit-user-response');
 
 // Function to display text letter by letter
 async function displayTextLetterByLetter(element, text, delay = 10) {
@@ -23,7 +23,8 @@ onload = async () => {
     const data = await response.json();
     let information = data.muscles;
     console.log(information);
-    const informationContainer = document.getElementById('information-container');
+    // const informationContainer = document.getElementById('information-container');
+    const informationContainer = document.getElementById('sandbox');
     const informationItem = document.createElement('article');
     informationItem.className = 'information-item';
 
@@ -53,22 +54,22 @@ onload = async () => {
 
 }
 
-submitButton.addEventListener('click', () => {
-    const userResponse = document.getElementById('user-input');
-    let string = userResponse.value
-    userResponse.value = ''; // Clear the input field
+// submitButton.addEventListener('click', () => {
+//     const userResponse = document.getElementById('user-input');
+//     let string = userResponse.value
+//     userResponse.value = ''; // Clear the input field
 
-    const article = document.createElement('article');
-    article.className = 'user-message';
+//     const article = document.createElement('article');
+//     article.className = 'user-message';
 
-    const pElement = document.createElement('p');
-    pElement.innerHTML = string + "<br> This feature is under construction";
+//     const pElement = document.createElement('p');
+//     pElement.innerHTML = string + "<br> This feature is under construction";
 
-    article.appendChild(pElement);
-    const placeholder = document.getElementsByClassName('scrollable');
-    placeholder[0].appendChild(article);
+//     article.appendChild(pElement);
+//     const placeholder = document.getElementsByClassName('scrollable');
+//     placeholder[0].appendChild(article);
 
-});
+// });
 
 
 
@@ -76,15 +77,45 @@ function captializeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
+
 const viewHistory = document.getElementById('sandbox-button');
 viewHistory.addEventListener('click', async () => {
-    const response = await fetch(`${URL}/generated-information-history`);
+    const response = await fetch(`${URL}/generate-information-history`);
     const data = await response.json();
-    const history = document.createElement('history');
-    data.forEach((item) => {
-        const p = document.createElement('pre');
-        p.innerHTML = item;
-        history.appendChild(p);
+
+    let information = data;
+    console.log(information);
+    // const informationContainer = document.getElementById('information-container');
+    const informationContainer = document.getElementById('sandbox-all');
+    const informationItem = document.createElement('article');
+    informationItem.className = 'information-sandbox-all';
+
+    information.forEach((item) => {
+        item.muscles.forEach((muscle) => {
+            let titleFunction = `${Object.keys(muscle)[1]}`;
+            titleFunction = captializeFirstLetter(titleFunction);
+            
+            let titleLocation = `${Object.keys(muscle)[2]}`;
+            titleLocation = captializeFirstLetter(titleLocation);
+
+            let functionDescription = `${muscle.function}`;
+            let locationDescription = `${muscle.location}`;
+
+            let stringBuilder = `<br>
+            ${muscle.name}<br><br>
+            ${titleFunction}:<br>${functionDescription}<br><br>
+            ${titleLocation}:<br>${locationDescription}<br>
+            `;
+
+            string += stringBuilder;
+        });
+
+
     });
-    here.appendChild(history);
+    informationContainer.appendChild(informationItem);
+    here.innerHTML = "";
+    here.innerHTML = string;
+    informationItem.appendChild(here);
+
+    // here.appendChild(informationContainer);
 });
