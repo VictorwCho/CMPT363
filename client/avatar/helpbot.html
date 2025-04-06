@@ -53,10 +53,13 @@
         const chatContainer = document.getElementById("chat-container");
         
         const botResponses = [
-          "Coach AI: Placeholder response 1...",
-          "Coach AI: Placeholder response 2...",
-          "Coach AI: Placeholder response 3..."
+          "Coach AI: Here are some back exercises to pair with your biceps for a complete pull day.",
+          "Coach AI: Swapped out the exercises that required machines. These new ones can be done at home with just dumbbells.",
+          "Coach AI: Make sure to warm up your shoulders before starting. Want me to suggest a warm-up routine?",
+          "Coach AI: Based on your fitness goal to build muscle, I’ve bumped up the sets and reduced reps slightly for more strength focus.",
+          "Coach AI: You're making great progress. Consistency is key — let’s keep going!"
         ];
+
         let responseIndex = 0;
         
         chatForm.addEventListener("submit", (event) => {
@@ -73,14 +76,14 @@
 
           // Simulate bot response
           setTimeout(() => {
+            const randomIndex = Math.floor(Math.random() * botResponses.length);
             const aiMessage = document.createElement("article");
             aiMessage.classList.add("ai-message");
-            aiMessage.innerHTML = `<p>${botResponses[responseIndex]}</p>`;
+            aiMessage.innerHTML = `<p>${botResponses[randomIndex]}</p>`;
             chatContainer.appendChild(aiMessage);
             chatContainer.scrollTop = chatContainer.scrollHeight;
-
-            responseIndex = (responseIndex + 1) % botResponses.length;
           }, 1000);
+
 
           userInput.value = "";
         });
