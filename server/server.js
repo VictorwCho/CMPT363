@@ -17,14 +17,18 @@ const options = {
 app.use(cors());
 app.use(express.json());
 
-// Root endpoint
+/**
+ * * * Root endpoint
+ */
 app.get('/', (req, res) => {
     res.status(200).send('Welcome to the root endpoint!');
 });
 
-// /generate information endpoint
-let generatedInformationData = [];
-let generatedWorkoutData = [];
+/**
+ * * Endpoint to generate information using the Google API
+ */
+let generatedInformationData = []; // Array to store generated information
+let generatedWorkoutData = []; // Array to store generated workouts
 app.post('/generate-information', (req, res) => {
     const requestData = req.body; // Automatically parsed by express.json()
 
@@ -70,11 +74,17 @@ app.post('/generate-information', (req, res) => {
     apiReq.end();
 });
 
+/**
+ * * Endpoint to get the last generated information
+ */
 app.get('/last-generated-information', (req, res) => {
     let end = generatedInformationData.length;
     res.status(200).json(generatedInformationData[end-1]);
 });
 
+/**
+ * * Endpoint to get all generated information except the last one
+ */
 app.get('/generate-information-history', (req, res) => {
     let generatedInformationMinusEnd = generatedInformationData.slice(0, -1);
     res.status(200).json(generatedInformationMinusEnd);
@@ -82,7 +92,9 @@ app.get('/generate-information-history', (req, res) => {
     console.log(generatedInformationMinusEnd);
 });
 
-// generate workout endpoint
+/**
+ * * * Endpoint to get all generated information
+ */
 app.post('/generate-workouts', (req, res) => {
     const requestData = req.body; // Automatically parsed by express.json()
 
@@ -127,6 +139,9 @@ app.post('/generate-workouts', (req, res) => {
     apiReq.end();
 });
 
+/**
+ * * * Endpoint to get the last generated workout
+ */
 app.get('/all-generated-workouts', (req, res) => {
     res.status(200).json(generatedWorkoutData);
     console.log("contents of workout\n");

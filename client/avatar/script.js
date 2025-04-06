@@ -12,35 +12,39 @@ const muscleGroups = {
     "Core": ["Abs", "Obliques"],
 };
 
-const URL = 'https://localhost:3001'
+const URL = 'https://localhost:3001' // the url of the server
 const ellipses = document.querySelectorAll('.ellipse');
 const generateInformationButton = document.getElementById('generate-information');
 const generateWorkoutButton = document.getElementById('generate-workout');
+const generateStretchButton = document.getElementById('generate-stretches');
 const errorMessageServer = 
     `We’re sorry! The server encountered an issue and is currently unavailable. Please try again later.\n\nIf the problem persists, contact support or check our status page at www.support.com for updates.`
 const errorMessageFailedRetrieval = 
     `We’re unable to retrieve information from the server at the moment. This may be due to a network issue or server downtime. Please check your internet connection and try again.\n\nIf the issue persists, contact support or visit our status page at www.support.com for updates.`
 const helpMessage = 
     `Click on the blue dots to open a popup window. From there, you can select and add muscles to generate detailed information.\n\nIf you're unsure which muscles to choose, hover over the blue dots for descriptions or consult the guide for further assistance.`
-
-var myMuscles = [];
+    
+var myMuscles = []; // Array to store the selected muscles
 
 /**
- * Add an event listener to each ellipse
+ * Add an event listener to each ellipse which will show:
+ * - a hover message when the mouse is over the ellipse
+ * - a popup when the ellipse is clicked
+ * 
  */
 ellipses.forEach(ellipse => {
-    const elipseId = document.getElementById(ellipse.id);
-    elipseId.addEventListener('mouseover', () => {
-        elipseId.style.cursor = 'pointer';
-        elipseId.style.transform = 'scale(1.7)';
-        elipseId.style.transition = 'transform 0.3s ease-in-out';
+    const ellipseId = document.getElementById(ellipse.id);
+    ellipseId.addEventListener('mouseover', () => {
+        ellipseId.style.cursor = 'pointer';
+        ellipseId.style.transform = 'scale(1.7)';
+        ellipseId.style.transition = 'transform 0.3s ease-in-out';
         const muscleGroupName = getMuscleGroup(ellipse.id);
         showHoverMessage(muscleGroupName, ellipse);
     });
 
-    elipseId.addEventListener('mouseout', () => {
-        elipseId.style.cursor = 'default';
-        elipseId.style.transform = 'scale(1)';
+    ellipseId.addEventListener('mouseout', () => {
+        ellipseId.style.cursor = 'default';
+        ellipseId.style.transform = 'scale(1)';
         hideHoverMessage();
     });
 
@@ -50,6 +54,11 @@ ellipses.forEach(ellipse => {
     });
 });
 
+/**
+ * Show a hover message when the mouse is over the ellipse.
+ * @param {*} message 
+ * @param {*} target 
+ */
 function showHoverMessage(message, target) {
     const hoverMessage = document.createElement('div');
     hoverMessage.id = 'hover-message';
@@ -70,6 +79,9 @@ function showHoverMessage(message, target) {
     document.body.appendChild(hoverMessage);
 }
 
+/**
+ * Hide the hover message when the mouse is out of the ellipse.
+ */
 function hideHoverMessage() {
     const hoverMessage = document.getElementById('hover-message');
     if (hoverMessage) {
@@ -192,6 +204,11 @@ function popup(muscleGroupName) {
     });
 };
 
+/**
+ * This function populates the muscle list with the selected muscles and adds a button to remove them.
+ * It also adds a click event listener to the button to remove the muscle from the list.
+ * 
+ */
 function populateMuscleList() {
     const muscleList = document.getElementById('muscle-list-content');
     muscleList.innerHTML = "";
@@ -216,6 +233,10 @@ function populateMuscleList() {
     });
 }
 
+/**
+ * A template for the workout prompt.
+ * @returns string of the workout prompt template
+ */
 function generateWorkoutPromptTemplate() {
     let muscleList = myMuscles.join(', ');
     let string = 
@@ -241,6 +262,10 @@ function generateWorkoutPromptTemplate() {
     return string;
 }
 
+/**
+ * A template for the information prompt.
+ * @returns string of the information prompt template
+ */
 function generateInformationPromptTemplate() {
     let muscleList = myMuscles.map((muscle, index) => `${index + 1}. [${muscle}]`).join('\n');
     let string =
@@ -262,6 +287,13 @@ function generateInformationPromptTemplate() {
     return string;
 }
 
+/**
+ * Generate a workout when the button is clicked.
+ * It will show a loading bar while the request is being processed.
+ * If the request is successful, it will redirect to the workout page.
+ * If the request fails, it will show an error message.
+ * 
+ */
 generateWorkoutButton.addEventListener('click', async () => {
     if (myMuscles.length === 0) {
         alert(`${helpMessage}`);
@@ -327,7 +359,10 @@ generateWorkoutButton.addEventListener('click', async () => {
 });
 
 /**
- * Generate information
+ * Generate information when the button is clicked.
+ * It will show a loading bar while the request is being processed.
+ * If the request is successful, it will redirect to the information page.
+ * If the request fails, it will show an error message.
  */
 generateInformationButton.addEventListener('click', async () => {
     if (myMuscles.length === 0) {
@@ -390,4 +425,8 @@ generateInformationButton.addEventListener('click', async () => {
         loadingBarContainer.style.display = 'none'; // Hide the loading bar
         section.style.display = 'flex'; // Show the main content again
     }
+});
+
+generateStretchButton.addEventListener('click', () => {
+    alert("Under Construction");
 });

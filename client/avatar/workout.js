@@ -1,16 +1,19 @@
 const URL = 'https://localhost:3001';
 const workoutContainer = document.getElementById('workout-container');
 
-/*
-    Server retrieves information do i want to retrieve the last one or all?
-    i need to retrieve all the information
-*/
+/**
+ * * * * Function to fetch all generated workouts from the server and display them
+ */
 onload = async () => {
     const response = await fetch(`${URL}/all-generated-workouts`);
     const data = await response.json();
     iterateThroughWorkoutData(data);
 }
 
+/**
+ * Function to iterate through the workout data and create cards for each muscle group
+ * @param {*} data 
+ */
 function iterateThroughWorkoutData(data) {
     const groupedData = {};
     data.forEach(entry => {
@@ -45,6 +48,11 @@ function iterateThroughWorkoutData(data) {
     });
 }
 
+/**
+ * Function to create a workout card for each muscle group
+ * @param {*} muscle 
+ * @returns {HTMLElement} - The created workout card element
+ */
 function createWorkoutCard(muscle) {
     const card = document.createElement('section');
     let formatedString = muscle.replace(/ /g, '-').toLowerCase();
@@ -59,10 +67,20 @@ function createWorkoutCard(muscle) {
     return card;
 }
 
+/**
+ * Helper function to capitalize the first letter of a string
+ * @param {*} string 
+ * @returns {string} - The string with the first letter capitalized
+ */
 function captializeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
+/**
+ * Show a hover message when the user hovers over the refresh icon
+ * @param {*} message 
+ * @param {*} target 
+ */
 function showHoverMessage(message, target) {
     const hoverMessage = document.createElement('div');
     hoverMessage.id = 'hover-message';
@@ -83,6 +101,9 @@ function showHoverMessage(message, target) {
     document.body.appendChild(hoverMessage);
 }
 
+/**
+ * * Hide the hover message when the user moves the mouse away from the icon
+ */
 function hideHoverMessage() {
     const hoverMessage = document.getElementById('hover-message');
     if (hoverMessage) {
@@ -90,6 +111,15 @@ function hideHoverMessage() {
     }
 }
 
+/**
+ * Create workout information for each exercise
+ * @param {*} muscleGroupName 
+ * @param {*} exerciseName 
+ * @param {*} instructions 
+ * @param {*} sets 
+ * @param {*} reps 
+ * @returns {HTMLElement} - The created workout information element
+ */
 function createWorkoutInformation(muscleGroupName, exerciseName, instructions, sets, reps) {
     const description = document.createElement('article');
     description.classList.add('workout-card-information');

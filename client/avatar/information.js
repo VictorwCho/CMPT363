@@ -4,7 +4,12 @@ const sandboxAllContainer = document.getElementById("sandbox-all-container");
 let string = "";
 // const submitButton = document.getElementById('submit-user-response');
 
-// Function to display text letter by letter
+/**
+ * Helper function to capitalize the first letter of a string
+ * @param {*} element 
+ * @param {*} text 
+ * @param {*} delay 
+ */
 async function displayTextLetterByLetter(element, text, delay = 10) {
     element.innerHTML = ``; // Clear the element's content
     for (const letter of text) {
@@ -17,6 +22,9 @@ async function displayTextLetterByLetter(element, text, delay = 10) {
     }
 }
 
+/**
+ * * Function to create a workout information card
+ */
 const p = document.createElement('p');
 onload = async () => {
     const response = await fetch(`${URL}/last-generated-information`);
@@ -54,30 +62,18 @@ onload = async () => {
 
 }
 
-// submitButton.addEventListener('click', () => {
-//     const userResponse = document.getElementById('user-input');
-//     let string = userResponse.value
-//     userResponse.value = ''; // Clear the input field
-
-//     const article = document.createElement('article');
-//     article.className = 'user-message';
-
-//     const pElement = document.createElement('p');
-//     pElement.innerHTML = string + "<br> This feature is under construction";
-
-//     article.appendChild(pElement);
-//     const placeholder = document.getElementsByClassName('scrollable');
-//     placeholder[0].appendChild(article);
-
-// });
-
-
-
+/**
+ * Helper function to capitalize the first letter of a string
+ * @param {*} string 
+ * @returns {string} - The string with the first letter capitalized
+ */
 function captializeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
-
+/**
+ * * Function to create a workout information card for each muscle group
+ */
 const viewHistory = document.getElementById('sandbox-button');
 viewHistory.addEventListener('click', async () => {
     const response = await fetch(`${URL}/generate-information-history`);
